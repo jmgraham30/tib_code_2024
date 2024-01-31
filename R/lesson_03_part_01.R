@@ -31,13 +31,13 @@ tibble(x = c(-pi/4,3*pi/4)) |>
   labs(x="x",y="")
 
 
-x_t <- numeric(20)
+x_t <- numeric(10)
 x_t[1] <- 0.0
-for (i in 2:20){
+for (i in 2:10){
   x_t[i] <- cos(x_t[i-1])
 }
 
-tibble(x = 1:20, x_t = x_t) |>
+tibble(x = 1:10, x_t = x_t) |>
   ggplot(aes(x=x,y=x_t)) + 
   geom_point(color="steelblue",size=2) + 
   geom_line(color="steelblue",size=1) + 
