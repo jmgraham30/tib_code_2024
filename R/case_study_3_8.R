@@ -17,6 +17,7 @@ ggplot(data.frame(u = c(0,20)), aes(x = u)) +
 
 ggplot(data.frame(u = c(0,5)), aes(x = u)) +
   geom_function(fun = function(u){2*c_val * u^3 - c_val^2*u^2 + c_val^2},color="steelblue",linewidth=1) +
+  geom_hline(yintercept = 0, color = "black", linetype = "dotted") +
   labs(x = "u", y = "", title = TeX("Plot of $2c u^3 - c^2 u^2 + c^2$"))
 
 # define the function
