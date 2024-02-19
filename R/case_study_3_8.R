@@ -13,7 +13,7 @@ c_val <- 10
   geom_function(fun = function(u){0.45*(1 - u/c_val)},color="deepskyblue",linetype="dashed",linewidth=1) +
   geom_function(fun = function(u){0.56*(1 - u/c_val)},color="darkorchid",linetype="twodash",linewidth=1) +
   geom_function(fun = function(u){0.7*(1 - u/c_val)},color="brown",linetype="dashed",linewidth=1) +
-  labs(x = "u", y = "", title = TeX("Plot of $\\frac{u}{1+u^2}$ and $h(1 - \\frac{u}{c})$")) + 
+  labs(x = "u", y = "", subtitle = TeX("Plot of $\\frac{u}{1+u^2}$ and $h(1 - \\frac{u}{c})$")) + 
   ylim(c(-0.05,0.75)))
 
 
@@ -29,7 +29,7 @@ g_u_h <- function(u,h){
   geom_function(fun = function(u){g_u_h(u,0.56)},color="darkorchid") +
   geom_function(fun = function(u){g_u_h(u,0.7)},color="brown") +
   geom_hline(yintercept = 0, color = "black", linetype = "dotted") +
-  labs(x = "u", y = "", title = TeX("Plot of $h(1 - \\frac{u}{c}) - \\frac{u}{1+u^2}$")) + 
+  labs(x = "u", y = "", subtitle = TeX("Plot of $h(1 - \\frac{u}{c}) - \\frac{u}{1+u^2}$")) + 
   ylim(c(-1.0,1.0)))
 
 (p_1 / p_2)
@@ -37,7 +37,7 @@ g_u_h <- function(u,h){
 ggplot(data.frame(u = c(0,5)), aes(x = u)) +
   geom_function(fun = function(u){2*c_val * u^3 - c_val^2*u^2 + c_val^2},color="steelblue",linewidth=1) +
   geom_hline(yintercept = 0, color = "black", linetype = "dotted") +
-  labs(x = "u", y = "", title = TeX("Plot of $2c u^3 - c^2 u^2 + c^2$"))
+  labs(x = "u", y = "", subtitle = TeX("Plot of $2c u^3 - c^2 u^2 + c^2$"))
 
 # define the function
 f <- function(u){2*c_val * u^3 - c_val^2*u^2 + c_val^2}
