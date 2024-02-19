@@ -5,7 +5,7 @@ library(patchwork)
 theme_set(theme_bw(base_size = 13))
 
 c_val <- 10
-(p_1 <- ggplot(data.frame(u = c(0,20)), aes(x = u)) +
+(p_1 <- ggplot(data.frame(u = c(0,15)), aes(x = u)) +
   geom_function(fun = function(u){u / (1 + u^2)},color="steelblue",linewidth=1) +
   geom_function(fun = function(u){0.1*(1 - u/c_val)},color="darkgreen",linetype="dashed",linewidth=1) +
   geom_function(fun = function(u){0.25*(1 - u/c_val)},color="darkorange",linetype="dashed",linewidth=1) +
