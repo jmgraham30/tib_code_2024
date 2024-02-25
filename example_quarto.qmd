@@ -1,0 +1,156 @@
+---
+title: "Example Quarto Document"
+subtitle: "Illustrating Reproducible Reports"
+author: "Author Name"
+data: "2024-02-26"
+abstract: "This is an example Quarto document that demonstrates how to use the `quarto` package to create a reproducible report. The document is written in a combination of Markdown and R code. The R code is executed and the results are included in the final report. We also use the Mermaid framework to create diagrams."
+format: html
+bibliography: example.bib
+---
+
+```{r}
+#| include: false
+#| message: false
+#| warning: false
+
+library(tidyverse)
+library(deSolve)
+library(ggthemes)
+library(patchwork)
+
+theme_set(theme_bw(base_size = 13))
+```
+
+## Overview
+
+This is an example Quarto document that demonstrates how to use the `quarto` package to create a **reproducible** report. The document is written in a *combination* of Markdown and R code. The R code is executed and the results are included in the final report. We also use the [Mermaid](https://mermaid.js.org/) framework to create diagrams.
+
+## Figures, Diagrams, and Equations
+
+@fig-epi_fig shows a stock photo of an epidemiologist analyzing data on COVID-19[^1].
+
+[^1]: Coronavirus disease 2019 (COVID-19) is a contagious disease caused by the virus [SARS-CoV-2](https://en.wikipedia.org/wiki/SARS-CoV-2). 
+
+![Figure caption here, source [Stock photo](https://www.istockphoto.com/illustrations/epidemiology)](https://media.istockphoto.com/id/1320081468/vector/epidemiology-epidemiologist-scientist-analyze-data-on-covid-19-corona-virus-pandemic.jpg?s=612x612&w=0&k=20&c=NZIHsNEt4EHEQcCX8YG7FcHv1qTJEmYW0u_dzs_4JQI=){#fig-epi_fig width=50%}
+
+
+The SIR model diagram is shown in @fig-SIR_diagram.
+
+```{mermaid}
+%%| label: fig-SIR_diagram
+%%| fig-cap: SIR Model Diagram
+
+graph LR;
+
+    S[Susceptible] -->|Transmission| I[Infectious]
+    I -->|Recovery| R[Recovered]
+    
+```
+
+
+The corresponding equations are
+
+$$
+\begin{aligned}
+\frac{dS}{dt} &= -\beta S I \\
+\frac{dI}{dt} &= \beta S I - \gamma I \\
+\frac{dR}{dt} &= \gamma I
+\end{aligned}
+$$
+
+For more on mathematical modeling of infectious diseases, see [@brauer2012mathematical].
+
+
+## Code
+
+We use the `deSolve` package to solve the SIR model. The following code simulates the SIR model for two different values of the basic reproduction number $R_0$.
+
+```{r}
+#| echo: true
+#| code-fold: false
+
+
+sir_model <- function(t,state,parameters){
+  with(as.list(c(state,parameters)),{
+    dx <- -R0*x*y
+    dy <- R0*x*y - y
+    
+    list(c(dx,dy))
+  })
+}
+
+state <- c(x=0.90,y=0.1)
+
+times <- seq(0,12,by=0.1)
+
+sim1 <- as.data.frame(ode(y=state,times=times,func=sir_model,parms=c(R0=0.8)))
+
+sim2 <- as.data.frame(ode(y=state,times=times,func=sir_model,parms=c(R0=5.6)))
+```
+
+
+@fig-SIR_curves shows the SIR model curves for two different values of the basic reproduction number $R_0$.
+
+```{r}
+#| echo: true
+#| code-fold: true
+#| code-summary: "Show the code"
+#| label: fig-SIR_curves
+#| fig-cap: SIR Model Curves
+
+p1 <- sim1 |> 
+  rename(susceptible=x,infected=y) |>
+  pivot_longer(cols=c(susceptible,infected),names_to="state",values_to="population") |>
+  ggplot(aes(x=time,y=population,color=state)) + 
+  geom_line(lwd=1) + 
+  scale_color_colorblind() +
+  ylim(c(0,1)) + 
+  labs(x="Time",y="Popultion proportion",
+       color = "State",
+       title="Susceptibles persist") 
+
+p2 <- sim2 |> 
+  rename(susceptible=x,infected=y) |> 
+  pivot_longer(cols=c(susceptible,infected),names_to="state",values_to="population") |>
+  ggplot(aes(x=time,y=population,color=state)) + 
+  geom_line(lwd=1) + 
+  scale_color_colorblind() +
+  ylim(c(0,1)) +
+  labs(x="Time",y="Popultion proportion",
+       color = "State",
+       title="Susceptibles diminish") 
+
+(p1 / p2)
+```
+
+## References
+
+::: {#refs}
+:::
+
+
+:::{.callout-tip collapse="true"}
+## Expand for Session Info
+```{r}
+#| echo: false
+
+
+library(sessioninfo)
+# save the session info as an object
+pkg_sesh <- session_info(pkgs = "attached")
+
+# get the quarto version
+quarto_version <- system("quarto --version", intern = TRUE)
+
+# inject the quarto info
+pkg_sesh$platform$quarto <- paste(
+  system("quarto --version", intern = TRUE), 
+  "@", 
+  quarto::quarto_path()
+  )
+
+# print it out
+pkg_sesh
+```
+
+:::
