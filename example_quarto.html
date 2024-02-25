@@ -202,13 +202,41 @@ Figure&nbsp;2: SIR Model Diagram
 </div>
 </div>
 <p>The corresponding equations are</p>
-<p><span class="math display">\[
+<p><span id="eq-abc"><span class="math display">\[
 \begin{aligned}
 \frac{dS}{dt} &amp;= -\beta S I \\
 \frac{dI}{dt} &amp;= \beta S I - \gamma I \\
 \frac{dR}{dt} &amp;= \gamma I
 \end{aligned}
-\]</span></p>
+\tag{1}\]</span></span></p>
+<p><a href="#tbl-parameters" class="quarto-xref">Table&nbsp;1</a> shows the parameters of the SIR model in <a href="#eq-abc" class="quarto-xref">Equation&nbsp;1</a>.</p>
+<div id="tbl-parameters" class="quarto-float anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-parameters-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: SIR model parameters
+</figcaption>
+<div aria-describedby="tbl-parameters-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="table">
+<thead>
+<tr class="header">
+<th>Parameter</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(\beta\)</span></td>
+<td>Infection rate</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\gamma\)</span></td>
+<td>Recovery rate</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
 <p>For more on mathematical modeling of infectious diseases, see <span class="citation" data-cites="brauer2012mathematical">(<a href="#ref-brauer2012mathematical" role="doc-biblioref">Brauer, Castillo-Chavez, and Castillo-Chavez 2012</a>)</span>.</p>
 </section>
 <section id="code" class="level2">

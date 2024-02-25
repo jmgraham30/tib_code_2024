@@ -56,7 +56,17 @@ $$
 \frac{dI}{dt} &= \beta S I - \gamma I \\
 \frac{dR}{dt} &= \gamma I
 \end{aligned}
-$$
+$$ {#eq-abc}
+
+@tbl-parameters shows the parameters of the SIR model in @eq-abc.    
+
+| Parameter | Meaning |
+|------|------|
+| $\beta$    | Infection rate    |
+| $\gamma$    | Recovery rate    | 
+
+: SIR model parameters {#tbl-parameters}
+
 
 For more on mathematical modeling of infectious diseases, see [@brauer2012mathematical].
 
