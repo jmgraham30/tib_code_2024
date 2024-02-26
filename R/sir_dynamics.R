@@ -18,7 +18,7 @@ state <- c(x=0.90,y=0.1)
 
 times <- seq(0,12,by=0.1)
 
-sim1 <- as.data.frame(ode(y=state,times=times,func=sir_model,parms=c(R0=0.8)))
+sim1 <- as.data.frame(ode(y=state,times=times,func=sir_model,parms=c(R0=1.0)))
 
 sim2 <- as.data.frame(ode(y=state,times=times,func=sir_model,parms=c(R0=5.6)))
 
