@@ -2,6 +2,7 @@ library(tidyverse)
 library(deSolve)
 library(phaseR)
 library(ggquiver)
+library(patchwork)
 
 # set the plot theme
 theme_set(theme_bw(base_size = 13))
@@ -44,7 +45,7 @@ lotka_volterra_sol <- ode(y = y0, times = times, func = lotka_volterra_rhs, parm
 
 lotka_volterra_sol_df <- as.data.frame(lotka_volterra_sol)
 
-lotka_volterra_sol_df |>
+ts <- lotka_volterra_sol_df |>
   ggplot(aes(x = time)) +
   geom_line(aes(y = x, color = "Prey"),linewidth=1) +
   geom_line(aes(y = y, color = "Predator"),linewidth=1) +
@@ -53,9 +54,14 @@ lotka_volterra_sol_df |>
        color = "Species") +
   scale_color_manual(values = c("Prey" = "steelblue", "Predator" = "purple"))
 
-lv_vf + 
+ts
+
+pp <- lv_vf + 
   geom_path(data = lotka_volterra_sol_df, aes(x = x, y = y, color = "Solution"), linewidth = 1, color="black") 
 
+pp
+
+(ts / pp)
 
 system_p_flowField  <- flowField(lotka_volterra_rhs,
                                  xlim       = c(0, 4),
