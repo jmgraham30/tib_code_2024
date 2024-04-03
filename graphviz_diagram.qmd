@@ -1,0 +1,60 @@
+---
+title: "Untitled"
+format: html
+---
+
+
+
+```{dot}
+digraph G {
+    node [shape=plaintext];
+    rankdir=LR; // Horizontal layout
+
+    // First box
+    subgraph cluster_A {
+        label = "Susceptible";
+        node [shape=plaintext]; // Position for cluster A
+        A1 [label="(1 - I)"];
+    }
+
+    // Second box
+    subgraph cluster_B {
+        label = "Infected";
+        node [shape=plaintext]; // Position for cluster B
+        B1 [label="I"];
+    }
+
+    // Arrows between boxes
+    A1 -> B1 [label="g(1-C)I(1-I)"];
+    B1 -> A1[label="rI"];
+
+}
+
+```
+
+```{dot}
+digraph G {
+    node [shape=plaintext]
+    rankdir=LR; // Horizontal layout
+    
+    // First box
+    subgraph cluster_A {
+        label = "Defecting";
+        node [shape=plaintext];
+        A1 [label="(1 - C)"];
+    }
+
+    // Second box
+    subgraph cluster_B {
+        label = "Cooperating";
+        node [shape=plaintext];
+        B1 [label="C"];
+    }
+
+    // Arrows between boxes
+    A1 -> B1 [label="C(1-C)(I-T) (if I > T)"];
+    B1 -> A1[label="C(1-C)(I-T) (if I < T)"];
+
+}
+
+```

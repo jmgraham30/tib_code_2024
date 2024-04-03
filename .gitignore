@@ -3,3 +3,6 @@
 .RData
 .Ruserdata
 .DS_Store
+
+graphviz_diagram_files
+graphviz_diagram.html
