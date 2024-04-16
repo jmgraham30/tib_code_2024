@@ -47,38 +47,38 @@ tau_n <- function(v){1/(alpha_n(v) + beta_n(v))}
 
 v_df <- tibble(v=c(-100,50))
 
-p_m_inf <- v_df %>% ggplot(aes(x=v)) + 
-  geom_function(fun=m_inf) + 
+p_m_inf <- v_df |> ggplot(aes(x=v)) + 
+  geom_function(fun=m_inf,linewidth=1,color="steelblue") + 
   ylim(c(0,1)) + 
   xlab("v [mV]") + 
   ylab(TeX(r'($m_{\infty}$)'))
 
-p_m_tau <- v_df %>% ggplot(aes(x=v)) + 
-  geom_function(fun=tau_m) + 
+p_m_tau <- v_df |> ggplot(aes(x=v)) + 
+  geom_function(fun=tau_m,linewidth=1,color="steelblue") + 
   ylim(c(0,1)) + 
   xlab("v [mV]") + 
   ylab(TeX(r'($\tau_{m}$ (ms))'))
 
-p_h_inf <- v_df %>% ggplot(aes(x=v)) + 
-  geom_function(fun=h_inf) + 
+p_h_inf <- v_df |> ggplot(aes(x=v)) + 
+  geom_function(fun=h_inf,linewidth=1,color="steelblue") + 
   ylim(c(0,1)) + 
   xlab("v [mV]") + 
   ylab(TeX(r'($h_{\infty}$)'))
 
-p_h_tau <- v_df %>% ggplot(aes(x=v)) + 
-  geom_function(fun=tau_h) + 
+p_h_tau <- v_df |> ggplot(aes(x=v)) + 
+  geom_function(fun=tau_h,linewidth=1,color="steelblue") + 
   ylim(c(0,10)) + 
   xlab("v [mV]") + 
   ylab(TeX(r'($\tau_{h}$ (ms))'))
 
-p_n_inf <- v_df %>% ggplot(aes(x=v)) + 
-  geom_function(fun=n_inf) + 
+p_n_inf <- v_df |> ggplot(aes(x=v)) + 
+  geom_function(fun=n_inf,linewidth=1,color="steelblue") + 
   ylim(c(0,1)) + 
   xlab("v [mV]") + 
   ylab(TeX(r'($n_{\infty}$)'))
 
-p_n_tau <- v_df %>% ggplot(aes(x=v)) + 
-  geom_function(fun=tau_n) + 
+p_n_tau <- v_df |> ggplot(aes(x=v)) + 
+  geom_function(fun=tau_n,linewidth=1,color="steelblue") + 
   ylim(c(0,10)) + 
   xlab("v [mV]") + 
   ylab(TeX(r'($\tau_{n}$ (ms))'))
@@ -114,7 +114,7 @@ yini <- c(v=v0, h=1, m=m0, n=0.4)
 
 t_initial <- 0
 t_final <- 75
-times <- seq(from = t_initial, to = t_final, by = 0.08)
+times <- seq(from = t_initial, to = t_final, by = 0.04)
 
 out <- ode(y = yini, times = times, func = HH,
            parms = parameters,method = "ode45")
@@ -122,13 +122,13 @@ out <- ode(y = yini, times = times, func = HH,
 HHsol <- data.frame(t=out[,"time"],v=out[,"v"],h=out[,"h"],m=out[,"m"],n=out[,"n"])
 
 
-p1 <- HHsol %>%
+p1 <- HHsol |>
   ggplot(aes(x = t, y = v)) +
-  geom_line(aes(x = t, y = v),lwd=1) +
+  geom_line(aes(x = t, y = v),linewidth=1,color="steelblue") +
   labs(x="time [ms]",y = "v [mV]")
 
-p2 <- HHsol %>%
-  pivot_longer(-c(t,v),names_to="Variable", values_to="Value") %>%
+p2 <- HHsol |>
+  pivot_longer(-c(t,v),names_to="Variable", values_to="Value") |>
   ggplot(aes(x = t, y = Value, color = Variable)) +
   geom_line(aes(x = t, y = Value),lwd=1) +
   scale_color_colorblind() +
